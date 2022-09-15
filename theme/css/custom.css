@@ -1,3 +1,9 @@
 .navbar {
     background-color: #ECFDFF;
 }
+
+.tiny-header {
+    background-color: black;
+    color: #ECFDFF;
+    padding: 5px 0;
+}
