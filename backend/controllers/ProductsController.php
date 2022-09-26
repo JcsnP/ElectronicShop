@@ -7,6 +7,7 @@ use app\models\ProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -38,13 +39,17 @@ class ProductsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProductsSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (Yii::$app->user->isGuest)
+            $this->redirect(['site/login']);
+        else {
+            $searchModel = new ProductsSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**

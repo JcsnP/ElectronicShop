@@ -1,4 +1,9 @@
-# ใน backend->common->config->main-local <br> ใช้ connection mongodb ตามนี้
+# ใน common-> models -> User ให้เปลี่ยน function CollectionName() ตามนี้
+    'public static function CollectionName()
+    {
+        return ['ElectronicShop','users'];
+    }'
+# ใน common->config->main-local <br> ใช้ connection mongodb ตามนี้
     'mongodb' => [
             'class' => '\yii\mongodb\Connection',
             'dsn' => 'mongodb+srv://root:*****@db01.uyg1g.mongodb.net/test',
@@ -12,7 +17,7 @@
     </p>
     <p>
         <a href="https://l.messenger.com/l.php?u=https%3A%2F%2Fwww.hostinger.com%2Ftutorials%2Fhow-to-install-composer&h=AT0rkU2-uep1u58ROZZjOnmXiCRFYmJXf_FLF0ZksjOAImRTzCPGDNrY3QM3X4lPWZpnm7e0j8ZBVuQzCnWwmUJxgwm1dejGpCJVRBbktwxC3g8eI6jdP1H2_1YNEL26PgPrBQ">การติดตั้ง composer</a>
-        และใช้คำสั่ง <code>composer install</code> ในโฟลเดอร์ของ ElectronicShop
+        <br> และใช้คำสั่ง <code>composer install</code> ในโฟลเดอร์ของ ElectronicShop
     </p>
     <p>หากมีปัญหากรุณาเปิด issue</p>
 </h2>

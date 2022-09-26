@@ -19,7 +19,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'productName') ?>
 
-    <?= $form->field($model, 'productPrice') ?>
+    <?= $form->field($model, 'productPrice')->label("Product Price (Baht - ฿)") ?>
 
     <?= $form->field($model, 'productImage[0]')->label("ImageUrl 1") ?>
 

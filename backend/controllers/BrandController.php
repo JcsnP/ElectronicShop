@@ -7,6 +7,7 @@ use app\models\BrandSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * BrandController implements the CRUD actions for Brand model.
@@ -38,13 +39,17 @@ class BrandController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new BrandSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (Yii::$app->user->isGuest)
+            $this->redirect(['site/login']);
+        else {
+            $searchModel = new BrandSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**

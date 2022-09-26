@@ -5,23 +5,21 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for collection "cart".
+ * This is the model class for collection "type".
  *
  * @property \MongoDB\BSON\ObjectID|string $_id
- * @property mixed $cart_id
- * @property mixed $product_id
- * @property mixed $price
- * @property mixed $quantity
- * @property mixed $user_id
+ * @property mixed $type_id
+ * @property mixed $typeName
+ * @property mixed $status
  */
-class Cart extends \yii\mongodb\ActiveRecord
+class Type extends \yii\mongodb\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function collectionName()
     {
-        return 'cart';
+        return 'type';
     }
 
     /**
@@ -31,11 +29,9 @@ class Cart extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id',
-            'cart_id',
-            'product_id',
-            'price',
-            'quantity',
-            'user_id',
+            'type_id',
+            'typeName',
+            'status',
         ];
     }
 
@@ -45,7 +41,7 @@ class Cart extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['cart_id', 'product_id', 'price', 'quantity', 'user_id'], 'safe']
+            [['type_id', 'typeName', 'status'], 'safe']
         ];
     }
 
@@ -56,10 +52,9 @@ class Cart extends \yii\mongodb\ActiveRecord
     {
         return [
             '_id' => 'ID',
-            'product_id' => 'Product ID',
-            'price' => 'Price',
-            'quantity' => 'Quantity',
-            'user_id' => 'User ID',
+            'type_id' => 'Type ID',
+            'typeName' => 'Type Name',
+            'status' => 'Status',
         ];
     }
 

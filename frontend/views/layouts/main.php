@@ -53,15 +53,34 @@ AppAsset::register($this);
             font-family: 'Prompt', sans-serif !important;
         }
     </style>
+    <!-- icon change favicon here --> 
+    <?php
+        $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => 'https://cdn-icons-png.flaticon.com/512/2985/2985698.png']);
+    ?>
 </head>
 
 <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
 
-    <header>
+    <header style="border-bottom: 2px solid #0000005c;">
         <div class="tiny-header">
             <div class="container">
-                สินค้าทุกชิ้นมีการรับประกัน, ซื้อวันนี้แถมฟรีคู่มือการใช้งาน
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            สินค้าทุกชิ้นมีการรับประกัน, ซื้อวันนี้แถมฟรีคู่มือการใช้งาน
+                        </div>
+                        <div>
+                            <?php
+                            if (!Yii::$app->user->isGuest) {
+                                echo "Hello " . Yii::$app->user->identity->username;
+                            } else {
+                                echo "กรุณาเข้าสู่ระบบก่อนซื้อสินค้า";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <?php
@@ -78,6 +97,7 @@ AppAsset::register($this);
         // php header replace here
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'All Products', 'url' => ['site/all-product']],
             // ['label' => 'About', 'url' => ['/site/about']],
             // ['label' => 'Contact', 'url' => ['/site/contact']],
         ];
@@ -85,13 +105,14 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         } else {
+            $menuItems[] = ['label' => 'Profile', 'url' => ['personal-info/index']];
             $menuItems[] = ['label' => 'Cart', 'url' => ['/cart/index']];
             $menuItems[] = '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
                     // 'Logout (' . Yii::$app->user->identity->username . ')',
                     'Logout ',
-                    ['class' => 'genric-btn warning circle']
+                    ['class' => 'btn btn-warning btn-sm mt-1 ml-4']
                 )
                 . Html::endForm()
                 . '</li>';
@@ -119,7 +140,7 @@ AppAsset::register($this);
         <?= $content ?>
     </main>
     <!--::footer_part start::-->
-    <footer class="footer_part">
+    <footer class="footer_part" style="background-color: #F8F9FA; border-top: 2px solid #0000005c;">
         <div class="container">
             <div class="row justify-content-around">
                 <div class="col-sm-6 col-lg-2">

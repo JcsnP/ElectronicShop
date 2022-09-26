@@ -7,6 +7,7 @@ use app\models\CartSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * CartController implements the CRUD actions for Cart model.
@@ -38,13 +39,20 @@ class CartController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CartSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        if (Yii::$app->user->isGuest)
+            $this->redirect(['site/login']);
+        else {
+            $cart = Cart::find()->where(["user_id"=>(String)Yii::$app->user->identity->id])->all();
+            // $searchModel = new CartSearch();
+            // $dataProvider = $searchModel->search($this->request->queryParams);
+
+            return $this->render('index', [
+                'cart' => $cart,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -79,14 +87,6 @@ class CartController extends Controller
             'model' => $model,
         ]);
     }
-
-    /**
-     * Updates an existing Cart model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $_id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($_id)
     {
         $model = $this->findModel($_id);

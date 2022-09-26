@@ -11,7 +11,7 @@ use Yii;
  * @property mixed $user_id
  * @property mixed $fname
  * @property mixed $lname
- * @property mixed $address
+ * @property array $address
  * @property mixed $picture
  * @property mixed $phone
  * @property mixed $gender

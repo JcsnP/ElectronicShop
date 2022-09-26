@@ -11,13 +11,13 @@ use yii\bootstrap4\ActiveForm;
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container">
-    <div class="site-login">
+    <div class="site-login" style="max-width: 560px; margin: 0 auto;">
         <h1><?= Html::encode($this->title) ?></h1>
 
         <p>Please fill out the following fields to login:</p>
 
-        <div class="row">
-            <div class="col-lg-5">
+        <div class=" row">
+            <div class="col-lg-12">
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
@@ -37,7 +37,7 @@ use yii\bootstrap4\ActiveForm;
                 </div>
 
                 <?php ActiveForm::end(); ?>
-            </div>
+           </div>
         </div>
     </div>
 </div>

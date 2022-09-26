@@ -7,6 +7,7 @@ use app\models\TypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * TypeController implements the CRUD actions for Type model.
@@ -38,13 +39,17 @@ class TypeController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TypeSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (Yii::$app->user->isGuest)
+            $this->redirect(['site/login']);
+        else {
+            $searchModel = new TypeSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**

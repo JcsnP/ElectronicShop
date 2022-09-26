@@ -7,6 +7,8 @@ use app\models\PersonalInfoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\User;
+use yii;
 
 /**
  * PersonalInfoController implements the CRUD actions for PersonalInfo model.
@@ -38,13 +40,27 @@ class PersonalInfoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PersonalInfoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if (Yii::$app->user->isGuest)
+            $this->redirect(['site/login']);
+        else {
+            $user = User::find()->where(["_id"=>(String)Yii::$app->user->identity->id])->all();
+            // $searchModel = new CartSearch();
+            // $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'user' => $user,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+            ]);
+        }
+
+        // $searchModel = new PersonalInfoSearch();
+        // $dataProvider = $searchModel->search($this->request->queryParams);
+
+        // return $this->render('index', [
+        //     'searchModel' => $searchModel,
+        //     'dataProvider' => $dataProvider,
+        // ]);
     }
 
     /**
@@ -71,7 +87,7 @@ class PersonalInfoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', '_id' => (string) $model->_id]);
+                return $this->redirect(['index', '_id' => (string) $model->_id]);
             }
         } 
 
@@ -92,7 +108,7 @@ class PersonalInfoController extends Controller
         $model = $this->findModel($_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', '_id' => (string) $model->_id]);
+            return $this->redirect(['index', '_id' => (string) $model->_id]);
         }
 
         return $this->render('update', [

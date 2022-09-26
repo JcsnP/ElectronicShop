@@ -35,7 +35,7 @@ class User extends \yii\mongodb\ActiveRecord implements IdentityInterface
      */
     public static function CollectionName()
     {
-        return ['yii2','users'];
+        return ['ElectronicShop','users'];
     }
 
     public function attributes()
@@ -94,7 +94,7 @@ class User extends \yii\mongodb\ActiveRecord implements IdentityInterface
 
         return static::findOne($id);
     }
-
+    
     /**
      * {@inheritdoc}
      */
