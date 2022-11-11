@@ -22,6 +22,7 @@ $this->title = $model->productName . " - Electronic Shop";
 $product = Products::find()->where(['status' => '1'])->all();
 $brandName;
 $typeName;
+$quantity=1;
 ?>
 <?php
 $form = ActiveForm::begin(); ?>
@@ -111,7 +112,15 @@ $form = ActiveForm::begin(); ?>
                     <p>
                         <?= $model->productDescrip ?>
                     </p>
-                    <div class="card_area">
+                    <div class="card_area d-flex justify-content-between align-items-center">
+                        <div class="product_count">
+                                <?php echo $form->field($cartModel, 'quantity',[
+                                'options' => [
+                                    'tag' => 'div',
+                                    'class' => 'input-number',
+                                ]])->textInput(['type'=>'number','min' => 0, 'max' => 10, 'step' => 1,'value' => $quantity ])->label(false);?>
+                                <!-- <input class="input-number" type="text"value="1" min="0" max="10" name="qty"> -->
+                        </div>
                         <?php
                         if (Yii::$app->user->isGuest) { ?>
                             <a href="index.php?r=site%2Flogin" class="btn_3 w-100 text-center">Add to Cart</a>
@@ -119,7 +128,7 @@ $form = ActiveForm::begin(); ?>
                             echo $form->field($cartModel, 'product_id')->hiddenInput(['value' => $product_id])->label(false);
                             echo $form->field($cartModel, 'price')->hiddenInput(['value' => $model->productPrice])->label(false);
                             echo $form->field($cartModel, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false);
-                            echo $form->field($cartModel, 'quantity')->hiddenInput(['value' => 1])->label(false);
+                            // echo $form->field($cartModel, 'quantity')->hiddenInput(['value' => $quantity ])->label(false);
                             echo Html::submitButton('Add to cart', ['class' => 'btn_3 w-100 text-center']);
                         }
                         ?>

@@ -77,7 +77,7 @@ $amount = 0;
                 <td>
                   <div class="product_count">
                     <!-- <span class="input-number-decrement"> <i class="ti-angle-down"></i></span> -->
-                    <input class="input-number" type="text" style="text-align: center;" value="<?= $model->quantity ?>" min="0" max="10" disabled>
+                    <input class="input-number" type="number" style="text-align: center;" value="<?= $model->quantity ?>" min="0" max="10" disabled>
                     <!-- <span class="input-number-increment"> <i class="ti-angle-up"></i></span> -->
                   </div>
                 </td>

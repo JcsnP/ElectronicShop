@@ -33,7 +33,7 @@ AppAsset::register($this);
     <link rel="stylesheet" href="../../theme/css/all.css">
     <!-- flaticon CSS -->
     <link rel="stylesheet" href="../../theme/css/flaticon.css">
-    <link rel="stylesheet" href="../../theme/css/themify-icons.css">
+    <link rel="stylesheet" href="../../frontend/web/css/themify-icons.css">
     <!-- font awesome CSS -->
     <link rel="stylesheet" href="../../theme/css/magnific-popup.css">
     <!-- swiper CSS -->

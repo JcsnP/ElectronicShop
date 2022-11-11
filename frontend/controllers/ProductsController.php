@@ -48,10 +48,12 @@ class ProductsController extends Controller
 
         if ($this->request->isPost && $cartModel->load($this->request->post())) {
             $cart = Cart::find()->where(['user_id' => (string)Yii::$app->user->identity->id, 'product_id' => $cartModel->product_id])->one();
-
+            // $qty = $cart->quantity;
+            // var_dump($cartModel->quantity);
+            // exit();
             if (!empty($cart)) {
                 $cartModel = Cart::findOne(['_id' => $cart->_id]);
-                $cartModel->quantity = (string)((int)$cartModel->quantity + 1);
+                $cartModel->quantity = (string)((int)$cartModel->quantity + $cartModel->quantity);
             }
             $cartModel->save();
 
