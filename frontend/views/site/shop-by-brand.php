@@ -9,6 +9,20 @@ $product = Products::find()->where(['status' => '1'])->where(['brand_id' => $bra
 $brandName = Brand::find()->where(['brand_id' => $brand_id])->one()->brandName;
 ?>
 
+<style>
+    .sold-out {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .sold-out-img {
+        filter: opacity(40%);
+    }
+</style>
+
 <section style="margin: 0px 0;">
     <div class="container">
         <div class="title" style="margin-bottom: 3em !important;">
@@ -23,8 +37,13 @@ $brandName = Brand::find()->where(['brand_id' => $brand_id])->one()->brandName;
                 <div class="col-md-3 col-6" style="margin-bottom: 4em;">
                     <!-- card item -->
                     <div class="single_product_model">
-                        <div style="height: 220px;">
-                            <img src="<?= $model->productImage[1] ?>" alt="">
+                        <div style="height: 220px; position: relative;">
+                            <img src="<?= $model->productImage[1] ?>" class="<?php if ($model->status == '2') echo "sold-out-img" ?>" alt="">
+                            <?php
+                            if ($model->status == '2') {
+                                echo "<h2 class=\"sold-out\">สินค้าหมด</h2>";
+                            }
+                            ?>
                         </div>
                         <div class="single_product_text mt-5" style="height: 220px;">
                             <h4><?= $model->productName ?></h4>

@@ -15,7 +15,7 @@ $typeName;
     <div class="container">
         <div class="title" style="margin-bottom: 3em !important;">
             <h1>All Products</h1>
-            มีสินค้าทั้งหมด <?= count($product) ?> ชิ้น
+            มีสินค้าพร้อมขายทั้งหมด <?= count($product) ?> ชิ้น
             <br>
             <br>
             <?= Html::a('< กลับไปหน้าหลัก', ['/site/index'], ['class' => 'h5']) ?>

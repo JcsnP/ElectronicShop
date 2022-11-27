@@ -39,6 +39,8 @@ AppAsset::register($this);
         ['label' => 'Brand', 'url' => ['/brand/index']],
         ['label' => 'Type', 'url' => ['/type/index']],
         ['label' => 'Product', 'url' => ['/products/index']],
+        ['label' => 'Coupon', 'url' => ['/coupons/index']],
+        ['label' => 'Coupon Type', 'url' => ['/coupons-type/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

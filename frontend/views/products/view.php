@@ -22,10 +22,24 @@ $this->title = $model->productName . " - Electronic Shop";
 $product = Products::find()->where(['status' => '1'])->all();
 $brandName;
 $typeName;
-$quantity=1;
+$quantity = 1;
 ?>
-<?php
-$form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
+
+<style>
+    .sold-out {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .sold-out-img {
+        filter: opacity(40%);
+    }
+</style>
+
 <header>
     <link rel="stylesheet" href="../../theme/css/custom.css">
 </header>
@@ -50,15 +64,20 @@ $form = ActiveForm::begin(); ?>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" style="position: relative;">
                         <div class="carousel-item active">
-                            <img class="d-block" src="<?= $model->productImage[0] ?>" style="height: 300px; margin: auto;">
+                            <img class="d-block <?php if ($model->status == '2') echo 'sold-out-img' ?>" src="<?= $model->productImage[0] ?>" style="height: 300px; margin: auto;">
                         </div>
                         <?php foreach (array_slice($model->productImage, 1) as $index => $item) { ?>
                             <div class="carousel-item">
-                                <img class="d-block" src="<?= $item ?>" style="height: 300px; margin: auto;">
+                                <img class="d-block <?php if ($model->status == '2') echo 'sold-out-img' ?>" src="<?= $item ?>" style="height: 300px; margin: auto;">
                             </div>
                         <?php } ?>
+                        <?php
+                        if ($model->status == '2') {
+                            echo "<h2 class=\"sold-out\">สินค้าหมด</h2>";
+                        }
+                        ?>
                     </div>
                     <a class="carousel-control-prev" style="filter: invert(100%);" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -114,12 +133,13 @@ $form = ActiveForm::begin(); ?>
                     </p>
                     <div class="card_area d-flex justify-content-between align-items-center">
                         <div class="product_count">
-                                <?php echo $form->field($cartModel, 'quantity',[
+                            <?php echo $form->field($cartModel, 'quantity', [
                                 'options' => [
                                     'tag' => 'div',
                                     'class' => 'input-number',
-                                ]])->textInput(['type'=>'number','min' => 0, 'max' => 10, 'step' => 1,'value' => $quantity ])->label(false);?>
-                                <!-- <input class="input-number" type="text"value="1" min="0" max="10" name="qty"> -->
+                                ]
+                            ])->textInput(['type' => 'number', 'min' => 1, 'max' => 10, 'step' => 1, 'value' => $quantity])->label(false); ?>
+                            <!-- <input class="input-number" type="text"value="1" min="0" max="10" name="qty"> -->
                         </div>
                         <?php
                         if (Yii::$app->user->isGuest) { ?>
@@ -129,7 +149,11 @@ $form = ActiveForm::begin(); ?>
                             echo $form->field($cartModel, 'price')->hiddenInput(['value' => $model->productPrice])->label(false);
                             echo $form->field($cartModel, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false);
                             // echo $form->field($cartModel, 'quantity')->hiddenInput(['value' => $quantity ])->label(false);
-                            echo Html::submitButton('Add to cart', ['class' => 'btn_3 w-100 text-center']);
+                            if($model->status == '2') {
+                                echo "<button type=\"button\" class=\"btn_3 bg-secondary w-100 text-center\" disabled>สินค้าหมด</button>";
+                            } else {
+                                echo Html::submitButton('Add to cart', ['class' => 'btn_3 w-100 text-center']);
+                            }
                         }
                         ?>
                     </div>

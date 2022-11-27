@@ -15,21 +15,12 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, '_id') ?>
-
-    <?= $form->field($model, 'cart_id') ?>
-
-    <?= $form->field($model, 'product_id') ?>
-
-    <?= $form->field($model, 'price') ?>
-
-    <?= $form->field($model, 'quantity') ?>
-
-    <?php // echo $form->field($model, 'user_id') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="input-group">
+        <?= Html::activeTextInput($model, 'q', ['class' => 'form-control', 'placeholder' => 'ค้นหาข้อมูล...']) ?>
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i> ค้นหา</button>
+            <?= Html::a('<i class="glyphicon glyphicon-plus"></i> ' . Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-default']) ?>
+        </span>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -4375,8 +4375,8 @@ ul {
 
 /* line 1097, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
 .cart_inner .table tbody tr td .product_count input {
-  width: 100px;
-  padding-left: 30px;
+  /*width: 100px;*/
+  /*padding-left: 30px;*/
   height: 40px;
   outline: none;
   box-shadow: none;
@@ -5467,7 +5467,8 @@ ul {
   border-radius: 50px;
   display: flex;
   align-items: center;
-  padding: 12px 15px;
+  padding: 4px 10px;
+  margin-right: 6px;
 }
 
 /* line 2007, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_product.scss */
